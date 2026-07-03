@@ -11,7 +11,7 @@ Prior to Chinchilla, the deep learning ecosystem prioritized inflating model par
 
 The implementation of foundation model scaling has transitioned from parameter-skewed estimations to tightly bounded tokens-per-parameter allocations, shifting toward modern inference-optimized overtraining configurations and test-time search loops.
 
-```
+```mermaid
 [Kaplan Scaling Laws (2020)] ───> [Chinchilla Laws (Hoffmann, 2022)] ───> [LLM Overtraining (Llama, 2024)] ───> [Test-Time Scaling Laws (o1/R1, 2025+)](Prioritised Size Over Data Volumes)   (Compute-Optimal 1:1 Equal Scaling)     (Inference-Driven Token Over-Allocation)   (Inference Search & Verification Scaling)
 ```
 
@@ -56,7 +56,7 @@ Depending on whether an AI system integrates safety alignments or structural spa
     *   *The Shift:* Decouples a model's active compute footprint from its total parameter capacity [INDEX: 15]. By organizing weights into sparse, gated expert blocks (e.g., DeepSeek-V3), a model can hold hundreds of billions of total parameters on disk, while activating only a tiny fraction per token [INDEX: 15].
     *   *Significance:* Completely breaks traditional Chinchilla scaling restrictions, allowing massive capacity expansions with drastically lower training FLOP expenditures [INDEX: 15].
 
-```
+```mermaid
 Pre-Training Compute Scaling FrontiersLow ┌─────────────────────────────────────────────────────────────│                                                     • [Kaplan: Under-trained/Bloated]│                                                       (e.g., GPT-3 175B on 300B Tokens)│Loss    │                                           • [Chinchilla: Compute Optimal](L)     │                                               (e.g., 70B on 1.4T Tokens)││                                 • [Modern Overtrained / Inference-Optimal]High └───────────────────────────────────────┴───────────────────── (e.g., Llama 3 8B on 15T Tokens)Low (Few Tokens)                                   High (Massive Tokens)Dataset Size (Tokens)
 ```
 
