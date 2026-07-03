@@ -1,5 +1,10 @@
 # Awesome-Chinchilla-Scaling
-## Chinchilla Scaling Laws: History, Progression, Variants, & Applications
+
+<p align="center">
+  <img src="./assets/banner.svg" alt="Chinchilla Scaling Laws Banner" width="100%">
+</p>
+
+## 🚀 Chinchilla Scaling Laws: History, Progression, Variants, & Applications 📊
 
 **Chinchilla Scaling Laws** represent a foundational paradigm shift in the compute-optimal design and pre-training of Large Language Models (LLMs). Formally introduced by Hoffmann et al. (DeepMind) in March 2022 ("Training Compute-Optimal Large Language Models"), Chinchilla scaling established the empirical mathematical relationship between a model’s parameter footprint ($N$) and the total volume of training data ($D$, measured in tokens) required to maximize linguistic performance for a fixed computational footprint ($C$). 
 
@@ -7,7 +12,7 @@ Prior to Chinchilla, the deep learning ecosystem prioritized inflating model par
 
 ---
 
-## 1. The Macro Chronological Evolution
+## 📅 1. The Macro Chronological Evolution
 
 The implementation of foundation model scaling has transitioned from parameter-skewed estimations to tightly bounded tokens-per-parameter allocations, shifting toward modern inference-optimized overtraining configurations and test-time search loops.
 
@@ -28,7 +33,7 @@ flowchart LR
 
 ---
 
-## 2. Core Functional & Estimation Variants
+## ⚙️ 2. Core Functional & Estimation Variants
 
 Compute-optimal frameworks are mathematically structured around distinct empirical scaling approaches to isolate power-law exponents.
 
@@ -40,7 +45,7 @@ Compute-optimal frameworks are mathematically structured around distinct empiric
 
 ---
 
-## 3. High-Capacity Architectural & Scaling Classes
+## 🏛️ 3. High-Capacity Architectural & Scaling Classes
 
 Depending on whether an AI system integrates safety alignments or structural sparse routing, compute-optimal training configurations require unique modifications.
 
@@ -63,7 +68,7 @@ flowchart LR
 
 ---
 
-## 4. Production Engineering Challenges & Hardware Solutions
+## 🛠️ 4. Production Engineering Challenges & Hardware Solutions
 
 Executing massive compute-optimal training runs across large-scale distributed hardware clusters introduces severe hyperparameter risks and data scarcity walls.
 
@@ -74,7 +79,7 @@ Executing massive compute-optimal training runs across large-scale distributed h
 
 ---
 
-## 5. Frontier Real-World AI Infrastructure Applications
+## 🌐 5. Frontier Real-World AI Infrastructure Applications
 
 | Infrastructure Application | Year First Used | Paper Link |
 | :--- | :---: | :--- |
@@ -84,7 +89,7 @@ Executing massive compute-optimal training runs across large-scale distributed h
 
 ---
 
-## References
+## 📚 References
 1. Kaplan, J., et al. (2020). Scaling laws for neural language models. *arXiv preprint arXiv:2001.08361*.
 2. Hoffmann, J., et al. (2022). Training compute-optimal large language models. *arXiv preprint arXiv:2203.15556*.
 3. Touvron, H., et al. (2023). Llama 2: Open foundation and fine-tuned chat models. *arXiv preprint arXiv:2307.09288*.
