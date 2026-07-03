@@ -19,17 +19,12 @@ flowchart LR
     --> D["Test-Time Scaling Laws (o1/R1, 2025+)<br/>(Inference-Time Search & Verification Scaling)"]
 ```
 
-*   **The Parameter-Dominant Era (Kaplan / OpenAI Scaling Laws, 2020)**
-    *   *Concept:* The foundational scaling blueprint. The early OpenAI research team concluded that when compute budgets scale up, developers should channel the vast majority of resources into expanding model parameter size ($N$), while scaling dataset size ($D$) at a significantly slower rate.
-    *   *Limitation:* Lead to heavily under-trained architectures. For example, the original GPT-3 was an un-converged 175-billion parameter model trained on a sparse 300 billion tokens. This made it mathematically capacity-starved and commercially expensive to host.
-*   **The Equal-Scaling Revolution (Chinchilla Scaling Laws, Hoffmann et al., 2022)**
-    *   *Concept:* Overturned Kaplan’s findings by explicitly accounting for learning rate decay schedules across diverse pilot scales. DeepMind proved that $N$ and $D$ should actually scale in equal proportions. For maximum compute-optimal efficiency, a model requires approximately 20 tokens per individual parameter (e.g., a 70B model requires 1.4 trillion tokens to hit the compute-optimal frontier).
-    *   *Significance:* Completely restructured base-model training globally, delivering significantly smaller, faster, and more capable models (such as Chinchilla 70B outperforming Gopher 280B while using identical compute).
-*   **The Inference-Optimal Overtraining Era (~2024–Present)**
-    *   *Concept:* Shifted optimization focus from *training efficiency* to *lifetime inference serving cost*. If an enterprise model is going to be queried billions of times in production, it makes commercial sense to purposefully "overtrain" a small model far past its theoretical training compute-optimal boundary.
-    *   *Significance:* Modern enterprise architectures ingest immense token counts. For example, Llama 3 8B was trained on over 15 trillion tokens, achieving an ultra-dense ratio exceeding **1,875 tokens per parameter**, keeping generation latency and VRAM footprints compact.
-*   **The Test-Time Compute Scaling Era (~2025–Present)**
-    *   *Concept:* The current modern state-of-the-art foundation standard. Breaks past static token-ingestion limits by scaling compute at the inference gate (System 2 thinking). Pioneered by models like OpenAI’s o-series and DeepSeek-R1, it proves that downstream task accuracy scales as a clean power-law function of the absolute **number of reasoning tokens generated at inference time**, complementing Chinchilla pre-training scaling.
+| Era / Concept | Year First Used | Paper Link |
+| :--- | :---: | :--- |
+| **The Parameter-Dominant Era (Kaplan / OpenAI Scaling Laws, 2020)**<br><br>**Concept:** The foundational scaling blueprint. The early OpenAI research team concluded that when compute budgets scale up, developers should channel the vast majority of resources into expanding model parameter size ($N$), while scaling dataset size ($D$) at a significantly slower rate.<br><br>**Limitation:** Led to heavily under-trained architectures. For example, the original GPT-3 was an un-converged 175-billion parameter model trained on a sparse 300 billion tokens. This made it mathematically capacity-starved and commercially expensive to host. | 2020 | [Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361) |
+| **The Equal-Scaling Revolution (Chinchilla Scaling Laws, Hoffmann et al., 2022)**<br><br>**Concept:** Overturned Kaplan’s findings by explicitly accounting for learning rate decay schedules across diverse pilot scales. DeepMind proved that $N$ and $D$ should actually scale in equal proportions. For maximum compute-optimal efficiency, a model requires approximately 20 tokens per individual parameter (e.g., a 70B model requires 1.4 trillion tokens to hit the compute-optimal frontier).<br><br>**Significance:** Completely restructured base-model training globally, delivering significantly smaller, faster, and more capable models (such as Chinchilla 70B outperforming Gopher 280B while using identical compute). | 2022 | [Training Compute-Optimal Large Language Models](https://arxiv.org/abs/2203.15556) |
+| **The Inference-Optimal Overtraining Era (~2024–Present)**<br><br>**Concept:** Shifted optimization focus from *training efficiency* to *lifetime inference serving cost*. If an enterprise model is going to be queried billions of times in production, it makes commercial sense to purposefully "overtrain" a small model far past its theoretical training compute-optimal boundary.<br><br>**Significance:** Modern enterprise architectures ingest immense token counts. For example, Llama 3 8B was trained on over 15 trillion tokens, achieving an ultra-dense ratio exceeding **1,875 tokens per parameter**, keeping generation latency and VRAM footprints compact. | 2023 | [LLaMA: Open and Efficient Foundation Language Models](https://arxiv.org/abs/2302.13971) |
+| **The Test-Time Compute Scaling Era (~2025–Present)**<br><br>**Concept:** The current modern state-of-the-art foundation standard. Breaks past static token-ingestion limits by scaling compute at the inference gate (System 2 thinking). Pioneered by models like OpenAI’s o-series and DeepSeek-R1, it proves that downstream task accuracy scales as a clean power-law function of the absolute **number of reasoning tokens generated at inference time**, complementing Chinchilla pre-training scaling. | 2024 | [Scaling LLM Test-Time Compute Optimally](https://arxiv.org/abs/2408.03314) |
 
 ---
 
@@ -37,16 +32,11 @@ flowchart LR
 
 Compute-optimal frameworks are mathematically structured around distinct empirical scaling approaches to isolate power-law exponents.
 
-- ### A. Parametric Loss Power-Law Modeling
-	*   **Mechanism:** Models the final cross-entropy evaluation loss ($L$) as a multi-variable power-law function:
-	    $$L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + E$$
-	*   **Behavior:** By training dozens of tiny pilot models (e.g., 10M to 1B parameters) on variable token durations, engineers fit the constant exponents ($\alpha=0.34, \beta=0.28, A=406.4, B=410.7$), forecasting the precise behavior of a 100B+ parameter system before launching the main run.
-
-- ### B. Empirical Optimal Frontier Isolation
-	*   **Mechanism:** Traces an explicit geometric envelope across a grid of completed training run data coordinates. It maps the lowest achievable loss points for every given computational FLOP expenditure level ($C \approx 6ND$), calculating the optimal breakdown where $N \propto C^a$ and $D \propto C^b$, forcing $a = b \approx 0.5$.
-
-- ### C. Downstream Capability Alignment Scaling
-	*   **Mechanism:** Moves past broad cross-entropy loss tracking to evaluate compute optimality against explicit downstream capabilities (such as coding accuracy, mathematical verification limits, or multi-hop retrieval benchmarks), proving specific safety and reasoning tasks follow harsher scaling laws than generic text predicting.
+| Variant / Method | Year First Used | Paper Link |
+| :--- | :---: | :--- |
+| **A. Parametric Loss Power-Law Modeling**<br><br>**Mechanism:** Models the final cross-entropy evaluation loss ($L$) as a multi-variable power-law function:<br>$$L(N, D) = \frac{A}{N^\alpha} + \frac{B}{D^\beta} + E$$<br>**Behavior:** By training dozens of tiny pilot models (e.g., 10M to 1B parameters) on variable token durations, engineers fit the constant exponents ($\alpha=0.34, \beta=0.28, A=406.4, B=410.7$), forecasting the precise behavior of a 100B+ parameter system before launching the main run. | 2020 | [Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361) |
+| **B. Empirical Optimal Frontier Isolation**<br><br>**Mechanism:** Traces an explicit geometric envelope across a grid of completed training run data coordinates. It maps the lowest achievable loss points for every given computational FLOP expenditure level ($C \approx 6ND$), calculating the optimal breakdown where $N \propto C^a$ and $D \propto C^b$, forcing $a = b \approx 0.5$. | 2022 | [Training Compute-Optimal Large Language Models](https://arxiv.org/abs/2203.15556) |
+| **C. Downstream Capability Alignment Scaling**<br><br>**Mechanism:** Moves past broad cross-entropy loss tracking to evaluate compute optimality against explicit downstream capabilities (such as coding accuracy, mathematical verification limits, or multi-hop retrieval benchmarks), proving specific safety and reasoning tasks follow harsher scaling laws than generic text predicting. | 2022 | [Broken Neural Scaling Laws](https://arxiv.org/abs/2210.14891) |
 
 ---
 
@@ -54,11 +44,10 @@ Compute-optimal frameworks are mathematically structured around distinct empiric
 
 Depending on whether an AI system integrates safety alignments or structural sparse routing, compute-optimal training configurations require unique modifications.
 
-*   **Aligned Compute Optimization (The Preference Optimization Shift)**
-    *   *The Shift:* Incorporating alignment pipelines (SFT, RLHF, DPO) introduces an explicit behavioral constraint. Because safety guardrails restrict output distributions, the classic compute-optimal curve shifts, requiring models to scale parameter counts ($N$) wider and deeper earlier in their lifecycle to absorb safety behaviors without corrupting core logical capabilities.
-*   **Mixture-of-Experts (MoE) Scaling Optimization**
-    *   *The Shift:* Decouples a model's active compute footprint from its total parameter capacity [INDEX: 15]. By organizing weights into sparse, gated expert blocks (e.g., DeepSeek-V3), a model can hold hundreds of billions of total parameters on disk, while activating only a tiny fraction per token [INDEX: 15].
-    *   *Significance:* Completely breaks traditional Chinchilla scaling restrictions, allowing massive capacity expansions with drastically lower training FLOP expenditures [INDEX: 15].
+| Scaling Class | Year First Used | Paper Link |
+| :--- | :---: | :--- |
+| **Aligned Compute Optimization (The Preference Optimization Shift)**<br><br>**The Shift:** Incorporating alignment pipelines (SFT, RLHF, DPO) introduces an explicit behavioral constraint. Because safety guardrails restrict output distributions, the classic compute-optimal curve shifts, requiring models to scale parameter counts ($N$) wider and deeper earlier in their lifecycle to absorb safety behaviors without corrupting core logical capabilities. | 2022 | [Scaling Laws for Reward Model Overoptimization](https://arxiv.org/abs/2210.10760) |
+| **Mixture-of-Experts (MoE) Scaling Optimization**<br><br>**The Shift:** Decouples a model's active compute footprint from its total parameter capacity [INDEX: 15]. By organizing weights into sparse, gated expert blocks (e.g., DeepSeek-V3), a model can hold hundreds of billions of total parameters on disk, while activating only a tiny fraction per token [INDEX: 15].<br><br>**Significance:** Completely breaks traditional Chinchilla scaling restrictions, allowing massive capacity expansions with drastically lower training FLOP expenditures [INDEX: 15]. | 2022 | [Unified Scaling Laws for Routed Language Models](https://arxiv.org/abs/2202.01629) |
 
 ```mermaid
 flowchart LR
@@ -78,23 +67,20 @@ flowchart LR
 
 Executing massive compute-optimal training runs across large-scale distributed hardware clusters introduces severe hyperparameter risks and data scarcity walls.
 
-*   **The Learning Rate Decay Alignment Scheduler Lock**
-    *   *The Problem:* Standard power-law projections depend on the assumption that the learning rate (LR) cosine decay schedule matches the exact pre-planned target token destination. If an enterprise training run is scheduled for 5 trillion tokens, but the engineering team decides to abort or extend the run midway, the LR scheduler will be completely unaligned, degrading the model's compute efficiency.
-    *   *Mitigation:* Implementing **Continuous/Infinite LR Schedulers** (such as constant learning rates with terminal decay steps or inverse-square-root decay scripts) to permit flexible training horizons without sacrificing optimal loss convergence.
-*   **The Data Wall Constraint (Token Exhaustion)**
-    *   *The Problem:* As compute budgets climb into the YottaFLOP scale, compute-optimal equations demand tens or hundreds of trillions of unique, high-quality text tokens—rapidly exhausting the entire available pool of human-written internet text.
-    *   *Mitigation:* Deploying **Synthetic Data Generation Pipelines** (using frontier models to synthesize pristine, error-free reasoning traces, programming scenarios, and textbook scripts) alongside **Multi-Modal Data Ingestion** (tokenizing video, acoustics, and software structures) to multiply the available data matrix.
+| Challenge / Solution | Year First Used | Paper Link |
+| :--- | :---: | :--- |
+| **The Learning Rate Decay Alignment Scheduler Lock**<br><br>**The Problem:** Standard power-law projections depend on the assumption that the learning rate (LR) cosine decay schedule matches the exact pre-planned target token destination. If an enterprise training run is scheduled for 5 trillion tokens, but the engineering team decides to abort or extend the run midway, the LR scheduler will be completely unaligned, degrading the model's compute efficiency.<br><br>**Mitigation:** Implementing **Continuous/Infinite LR Schedulers** (such as constant learning rates with terminal decay steps or inverse-square-root decay scripts) to permit flexible training horizons without sacrificing optimal loss convergence. | 2022 | [Training Compute-Optimal Large Language Models](https://arxiv.org/abs/2203.15556) |
+| **The Data Wall Constraint (Token Exhaustion)**<br><br>**The Problem:** As compute budgets climb into the YottaFLOP scale, compute-optimal equations demand tens or hundreds of trillions of unique, high-quality text tokens—rapidly exhausting the entire available pool of human-written internet text.<br><br>**Mitigation:** Deploying **Synthetic Data Generation Pipelines** (using frontier models to synthesize pristine, error-free reasoning traces, programming scenarios, and textbook scripts) alongside **Multi-Modal Data Ingestion** (tokenizing video, acoustics, and software structures) to multiply the available data matrix. | 2022 | [Will We Run Out of Data?](https://arxiv.org/abs/2211.04325) |
 
 ---
 
 ## 5. Frontier Real-World AI Infrastructure Applications
 
-*   **Pre-Training Frontier Foundation LLM Suites (Llama / DeepSeek)**
-    *   *Application:* Guides cluster-wide hardware allocation policies [INDEX: 15]. Deep learning infrastructure teams run tiny, high-precision pilot runs to calibrate scaling equations exactly, ensuring that multi-million dollar training budgets spent over thousands of GPUs yield the absolute sharpest possible model intelligence [INDEX: 15].
-*   **High-Throughput Inference-Optimized Serving (vLLM Deployments)**
-    *   *Application:* Maximizes enterprise server concurrency. By leveraging the principles of inference-optimal overtraining, companies serve heavily over-trained 1.5B and 8B parameters models that match the reasoning capacity of older 70B networks, dropping VRAM overhead and cutting request processing latencies.
-*   **Sparsely Routed Mixture-of-Experts Scaling (DeepSeek-V3 / Mixtral)**
-    *   *Application:* Orchestrates distributed training pipelines [INDEX: 15]. Compute-optimal tracking models for sparse architectures map exact token-to-expert routing ratios, ensuring data-parallel and expert-parallel hardware shards balance compute processing loops without encountering server stalls [INDEX: 15].
+| Infrastructure Application | Year First Used | Paper Link |
+| :--- | :---: | :--- |
+| **Pre-Training Frontier Foundation LLM Suites (Llama / DeepSeek)**<br><br>**Application:** Guides cluster-wide hardware allocation policies [INDEX: 15]. Deep learning infrastructure teams run tiny, high-precision pilot runs to calibrate scaling equations exactly, ensuring that multi-million dollar training budgets spent over thousands of GPUs yield the absolute sharpest possible model intelligence [INDEX: 15]. | 2023 | [LLaMA: Open and Efficient Foundation Language Models](https://arxiv.org/abs/2302.13971) |
+| **High-Throughput Inference-Optimized Serving (vLLM Deployments)**<br><br>**Application:** Maximizes enterprise server concurrency. By leveraging the principles of inference-optimal overtraining, companies serve heavily over-trained 1.5B and 8B parameters models that match the reasoning capacity of older 70B networks, dropping VRAM overhead and cutting request processing latencies. | 2023 | [Efficient Memory Management for Large Language Model Serving](https://arxiv.org/abs/2309.06180) |
+| **Sparsely Routed Mixture-of-Experts Scaling (DeepSeek-V3 / Mixtral)**<br><br>**Application:** Orchestrates distributed training pipelines [INDEX: 15]. Compute-optimal tracking models for sparse architectures map exact token-to-expert routing ratios, ensuring data-parallel and expert-parallel hardware shards balance compute processing loops without encountering server stalls [INDEX: 15]. | 2023 | [Mixtral of Experts](https://arxiv.org/abs/2401.04088) |
 
 ---
 
