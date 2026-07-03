@@ -123,3 +123,14 @@ To assist with your documentation repository setup, let me know how you would li
 * I can generate a **Markdown matrix table** tracking the explicit parameter counts, token counts, and token-to-parameter ratios of the leading open-weight foundation models over the past 24 months.
 * I can write a detailed technical explanation focusing on **how Mixture-of-Experts (MoE) architectures modify the traditional $C \approx 6ND$ compute calculations** at runtime [INDEX: 15].
 
+## Star History
+<div align="center">
+<a href="https://www.star-history.com/?repos=ishandutta2007%2FAwesome-Chinchilla-Scaling&type=date&legend=bottom-right">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Chinchilla-Scaling&type=date&theme=dark&legend=bottom-right" />
+<source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Chinchilla-Scaling&type=date&legend=bottom-right" />
+<img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Chinchilla-Scaling&type=date&legend=bottom-right" />
+</picture>
+</a>
+</div>
+
