@@ -4,7 +4,17 @@
   <img src="./assets/banner.svg" alt="Chinchilla Scaling Laws Banner" width="100%">
 </p>
 
+<p align="center">
+  <a href="https://github.com/ishandutta2007/Awesome-Awesome-Awesome"><img src="https://img.shields.io/badge/Awesome-%E2%9C%94-blueviolet?style=flat-square&logo=github" alt="Awesome"/></a><a href="https://discord.gg/jc4xtF58Ve"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
+</p>
+
 ## 🚀 Chinchilla Scaling Laws: History, Progression, Variants, & Applications 📊
+
+Welcome to the definitive resource for **Chinchilla Scaling Laws**, **compute-optimal LLM pre-training**, and **foundation model scaling trajectory**. This curated repository tracks the evolution from parameter-dominant scaling models (like Kaplan/OpenAI scaling laws) to modern inference-optimal overtraining and test-time compute scaling strategies.
+
+### 🔍 SEO Overview & Key Concepts
+- **Keywords:** LLM scaling laws, Chinchilla scaling, compute-optimal training, parameter-data ratio, test-time compute, MoE scaling, inference optimization.
+- **Core Topics:** Kaplan vs Chinchilla scaling, 20 tokens per parameter, overtraining, System 2 test-time reasoning.
 
 **Chinchilla Scaling Laws** represent a foundational paradigm shift in the compute-optimal design and pre-training of Large Language Models (LLMs). Formally introduced by Hoffmann et al. (DeepMind) in March 2022 ("Training Compute-Optimal Large Language Models"), Chinchilla scaling established the empirical mathematical relationship between a model’s parameter footprint ($N$) and the total volume of training data ($D$, measured in tokens) required to maximize linguistic performance for a fixed computational footprint ($C$). 
 
