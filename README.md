@@ -12,7 +12,11 @@ Prior to Chinchilla, the deep learning ecosystem prioritized inflating model par
 The implementation of foundation model scaling has transitioned from parameter-skewed estimations to tightly bounded tokens-per-parameter allocations, shifting toward modern inference-optimized overtraining configurations and test-time search loops.
 
 ```mermaid
-[Kaplan Scaling Laws (2020)] ───> [Chinchilla Laws (Hoffmann, 2022)] ───> [LLM Overtraining (Llama, 2024)] ───> [Test-Time Scaling Laws (o1/R1, 2025+)](Prioritised Size Over Data Volumes)   (Compute-Optimal 1:1 Equal Scaling)     (Inference-Driven Token Over-Allocation)   (Inference Search & Verification Scaling)
+flowchart LR
+    A["Kaplan Scaling Laws (2020)<br/>(Prioritized Model Size over Data)"]
+    --> B["Chinchilla Laws (Hoffmann et al., 2022)<br/>(Compute-Optimal Parameter–Data Scaling)"]
+    --> C["LLM Overtraining (Llama, 2024)<br/>(High Token-to-Parameter Ratios)"]
+    --> D["Test-Time Scaling Laws (o1/R1, 2025+)<br/>(Inference-Time Search & Verification Scaling)"]
 ```
 
 *   **The Parameter-Dominant Era (Kaplan / OpenAI Scaling Laws, 2020)**
@@ -57,7 +61,15 @@ Depending on whether an AI system integrates safety alignments or structural spa
     *   *Significance:* Completely breaks traditional Chinchilla scaling restrictions, allowing massive capacity expansions with drastically lower training FLOP expenditures [INDEX: 15].
 
 ```mermaid
-Pre-Training Compute Scaling FrontiersLow ┌─────────────────────────────────────────────────────────────│                                                     • [Kaplan: Under-trained/Bloated]│                                                       (e.g., GPT-3 175B on 300B Tokens)│Loss    │                                           • [Chinchilla: Compute Optimal](L)     │                                               (e.g., 70B on 1.4T Tokens)││                                 • [Modern Overtrained / Inference-Optimal]High └───────────────────────────────────────┴───────────────────── (e.g., Llama 3 8B on 15T Tokens)Low (Few Tokens)                                   High (Massive Tokens)Dataset Size (Tokens)
+flowchart LR
+    subgraph P["Pre-Training Compute Scaling Frontiers"]
+        A["Kaplan Scaling<br/><br/>Under-trained / Bloated Models<br/>Example: GPT-3 175B on ~300B Tokens"]
+        --> B["Chinchilla Scaling<br/><br/>Compute-Optimal Training<br/>Example: 70B on ~1.4T Tokens"]
+        --> C["Inference-Optimal Overtraining<br/><br/>High Token-to-Parameter Ratios<br/>Example: Llama 3 8B on ~15T Tokens"]
+    end
+
+    X["Few Training Tokens<br/>Higher Loss"] --- A
+    C --- Y["Massive Training Tokens<br/>Lower Loss"]
 ```
 
 ---
